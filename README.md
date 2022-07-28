@@ -69,21 +69,6 @@ cd /root/Rabbit && docker run --name rabbit -p 5701:1234  -d  -v  /root/Rabbit/C
 * 正常填写其他信息，回调接口填写：http://ip:port/api/bind
 
 
-### 家宽ip变化的，搭配ip.sh文件使用，ip变化时，自动重启rabbit
-使用方法：
-1.新建日志文件
-```
-cd /root/Rabbit && wget https://raw.githubusercontent.com/HT944/MadRabbit/main/ip.sh && touch tool.log && bash ip.sh
-```
-2.运行上面命令后自己定时
-```
-crontab -e
-```
-3.里面写入，可自行百度一下cron定时表达式(这里默认每分钟检测一次)：
-```
-*/1 * * * * bash /root/Rabbit/ip.sh
-```
-
 ### 强调一遍
 ### 配置文件修改后，重新启动容器
 
@@ -95,12 +80,12 @@ docker stop rabbit && docker rm rabbit && docker pull ht944/rabbit:latest && cd 
 
 ## 3.2.1的amd版本升级
 ```
-docker stop rabbit && docker rm rabbit && docker pull ht944/rabbit:latest && cd /root/Rabbit && docker run --name rabbit -p 5701:1234  -d  -v  /root/Rabbit/Config:/usr/src/Project/Config -it --privileged=true  ht944/rabbit:3.2.1
+docker stop rabbit && docker rm rabbit && docker pull ht944/rabbit:3.2.1 && cd /root/Rabbit && docker run --name rabbit -p 5701:1234  -d  -v  /root/Rabbit/Config:/usr/src/Project/Config -it --privileged=true  ht944/rabbit:3.2.1
 ```
 
 ## 3.2.1的arm版本升级
 ```
-docker stop rabbit && docker rm rabbit && docker pull ht944/rabbit:latest && cd /root/Rabbit && docker run --name rabbit -p 5701:1234  -d  -v  /root/Rabbit/Config:/usr/src/Project/Config -it --privileged=true  ht944/rabbit:arm-3.2.1
+docker stop rabbit && docker rm rabbit && docker pull ht944/rabbit:arm-3.2.1 && cd /root/Rabbit && docker run --name rabbit -p 5701:1234  -d  -v  /root/Rabbit/Config:/usr/src/Project/Config -it --privileged=true  ht944/rabbit:arm-3.2.1
 ```
 
 ### 👇更新日志👇
