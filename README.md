@@ -40,7 +40,7 @@ cd /root/Rabbit
 
 ```
 #### 方案二：使用我的镜像
-3.1.0版本
+amd版本
 ```
 docker pull ht944/rabbit:latest
 ```
@@ -48,21 +48,13 @@ docker pull ht944/rabbit:latest
 ```
 cd /root/Rabbit && docker run --name rabbit -p 5701:1234  -d  -v  /root/Rabbit/Config:/usr/src/Project/Config -it --privileged=true  ht944/rabbit:latest
 ```
-3.2.1的amd版本
+arm版本
 ```
-docker pull ht944/rabbit:3.2.1
-```
-启动
-```
-cd /root/Rabbit && docker run --name rabbit -p 5701:1234  -d  -v  /root/Rabbit/Config:/usr/src/Project/Config -it --privileged=true  ht944/rabbit:3.2.1
-```
-3.2.2的arm版本
-```
-docker pull ht944/rabbit:arm-3.2.2
+docker pull ht944/rabbit:arm
 ```
 启动
 ```
-cd /root/Rabbit && docker run --name rabbit -p 5701:1234  -d  -v  /root/Rabbit/Config:/usr/src/Project/Config -it --privileged=true  ht944/rabbit:arm-3.2.2
+cd /root/Rabbit && docker run --name rabbit -p 5701:1234  -d  -v  /root/Rabbit/Config:/usr/src/Project/Config -it --privileged=true  ht944/rabbit:arm
 ```
 
 ### 对接WXPUSHER
@@ -73,22 +65,22 @@ cd /root/Rabbit && docker run --name rabbit -p 5701:1234  -d  -v  /root/Rabbit/C
 ### 配置文件修改后，重新启动容器
 
 
-## 一键升级
+## amd版本一键升级
 ```
 docker stop rabbit && docker rm rabbit && docker pull ht944/rabbit:latest && cd /root/Rabbit && docker run --name rabbit -p 5701:1234  -d  -v  /root/Rabbit/Config:/usr/src/Project/Config -it --privileged=true  ht944/rabbit:latest
 ```
 
-## 3.2.1的amd版本升级
+## arm版本一键升级
 ```
-docker stop rabbit && docker rm rabbit && docker pull ht944/rabbit:3.2.1 && cd /root/Rabbit && docker run --name rabbit -p 5701:1234  -d  -v  /root/Rabbit/Config:/usr/src/Project/Config -it --privileged=true  ht944/rabbit:3.2.1
-```
-
-## 3.2.2的arm版本升级
-```
-docker stop rabbit && docker rm rabbit && docker pull ht944/rabbit:arm-3.2.2 && cd /root/Rabbit && docker run --name rabbit -p 5701:1234  -d  -v  /root/Rabbit/Config:/usr/src/Project/Config -it --privileged=true  ht944/rabbit:arm-3.2.2
+docker stop rabbit && docker rm rabbit && docker pull ht944/rabbit:arm && cd /root/Rabbit && docker run --name rabbit -p 5701:1234  -d  -v  /root/Rabbit/Config:/usr/src/Project/Config -it --privileged=true  ht944/rabbit:arm
 ```
 
 ### 👇更新日志👇
+
+#### 4.0.0 (amd/arm) 版本更新
+* 新增接口方式登陆
+* 适配最新的图形验证，但是通过率极低，手动测试50次通过1次
+* 更换授权接口，大多数机器可访问授权
 
 #### 3.2.2 (arm) 版本更新
 * 更换授权接口，连接速度更快
