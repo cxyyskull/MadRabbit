@@ -21,7 +21,7 @@
   // XDD_TOKEN
   "XDD_TOKEN": "",
   // 强制使用特殊验证码
-  "FORCE_CAPTCHA": false,
+  "FORCE_CAPTCHA": true,
   // 平台注册地址：http://www.ttshitu.com/register.html
   // 打码平台的账号
   "TJ_USER": "",
