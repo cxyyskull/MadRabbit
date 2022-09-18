@@ -27,7 +27,7 @@
   "TJ_USER": "",
   // 打码平台用户密码
   "TJ_PWD": "",
-  // 傻妞的token，傻妞不设置token，无法对接rabbit
+  // 傻妞的token，傻妞不设置token，无法对接rabbit，命令为：set jd_cookie ark2.0_token xxxx
   "SILLY_TOKEN": "",
   // 刷新登陆账号的冷却时间，立马能登陆
   // 刷新链接示例：http://127.0.0.1:5701/api/refresh?token=132&phone=18888888888
