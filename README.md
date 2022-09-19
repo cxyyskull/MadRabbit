@@ -10,21 +10,38 @@
 ## 使用方法:
 1、新建一个项目
 ```
-cd /root && mkdir -p  Rabbit && cd Rabbit
+sudo cd /root && mkdir-p Rabbit && cd Rabbit
 ```
 2、创建一个目录放配置
 ```
 cd /root/Rabbit && mkdir -p  Config
 ```
 3、下载config.json 配置文件
+单青龙下这个
 ```
-cd /root/Rabbit/Config && wget -O Config.json  https://raw.githubusercontent.com/ht944/MadRabbit/main/Config.json
+cd /root/Rabbit/Config && wget -O Config.json  https://raw.githubusercontent.com/ht944/MadRabbit/main/oneConfig.json
 ```
 国内用
 ```
-cd /root/Rabbit/Config && wget -O Config.json  https://ghproxy.com/https://raw.githubusercontent.com/ht944/MadRabbit/main/Config.json
+cd /root/Rabbit/Config && wget -O Config.json  https://ghproxy.com/https://raw.githubusercontent.com/ht944/MadRabbit/main/oneConfig.json
 ```
-4、配置完后
+多青龙对接的下这个
+```
+cd /root/Rabbit/Config && wget -O Config.json  https://raw.githubusercontent.com/ht944/MadRabbit/main/manyConfig.json
+```
+国内用
+```
+cd /root/Rabbit/Config && wget -O Config.json  https://ghproxy.com/https://raw.githubusercontent.com/ht944/MadRabbit/main/manyConfig.json
+```
+不配置青龙的下这个
+```
+cd /root/Rabbit/Config && wget -O Config.json  https://raw.githubusercontent.com/ht944/MadRabbit/main/noConfig.json
+```
+国内用
+```
+cd /root/Rabbit/Config && wget -O Config.json  https://ghproxy.com/https://raw.githubusercontent.com/ht944/MadRabbit/main/noConfig.json
+```
+4、修改配置文件，配置完后
 ```
 cd /root/Rabbit
 ```
@@ -40,21 +57,30 @@ cd /root/Rabbit
 
 ```
 #### 方案二：使用我的镜像
+### 注意修改端口时，只能修改5701，不要修改1234。可以在其他目录创建项目，但是路径需要自己修改，小白建议直接默认
 amd版本
 ```
 docker pull ht944/rabbit:latest
 ```
+切换到Rabbit目录
+```
+cd /root/Rabbit
+```
 启动
 ```
-cd /root/Rabbit && docker run --name rabbit -p 5701:1234  -d  -v  /root/Rabbit/Config:/usr/src/Project/Config -it --privileged=true  ht944/rabbit:latest
+sudo docker run --name rabbit -p 5701:1234  -d  -v  /root/Rabbit/Config:/usr/src/Project/Config -it --privileged=true  --restart=always  ht944/rabbit:latest
 ```
 arm版本
 ```
 docker pull ht944/rabbit:arm
 ```
+切换到Rabbit目录
+```
+cd /root/Rabbit
+```
 启动
 ```
-cd /root/Rabbit && docker run --name rabbit -p 5701:1234  -d  -v  /root/Rabbit/Config:/usr/src/Project/Config -it --privileged=true  ht944/rabbit:arm
+sudo docker run --name rabbit -p 5701:1234  -d  -v  /root/Rabbit/Config:/usr/src/Project/Config -it --privileged=true  --restart=always  ht944/rabbit:arm
 ```
 
 ### 对接WXPUSHER
@@ -65,17 +91,59 @@ cd /root/Rabbit && docker run --name rabbit -p 5701:1234  -d  -v  /root/Rabbit/C
 ### 配置文件修改后，重新启动容器
 
 
-## amd版本一键升级
+## 版本升级（arm的需要改latest为arm）
+1.停止容器
 ```
-docker stop rabbit && docker rm rabbit && docker pull ht944/rabbit:latest && cd /root/Rabbit && docker run --name rabbit -p 5701:1234  -d  -v  /root/Rabbit/Config:/usr/src/Project/Config -it --privileged=true  ht944/rabbit:latest
+docker stop rabbit 
+```
+2.删除容器
+```
+docker rm rabbit
+```
+3.拉取新镜像（arm的需要改latest为arm）
+```
+docker pull ht944/rabbit:latest 
+```
+4.切换到
+```
+cd /root/Rabbit 
+```
+5.启动容器（arm的需要改latest为arm）
+```
+sudo docker run --name rabbit -p 5701:1234  -d  -v  /root/Rabbit/Config:/usr/src/Project/Config -it --privileged=true  ht944/rabbit:latest
 ```
 
-## arm版本一键升级
+## 一次执行上面所有命令（arm的需要改latest为arm）
 ```
-docker stop rabbit && docker rm rabbit && docker pull ht944/rabbit:arm && cd /root/Rabbit && docker run --name rabbit -p 5701:1234  -d  -v  /root/Rabbit/Config:/usr/src/Project/Config -it --privileged=true  ht944/rabbit:arm
+sudo docker stop rabbit && docker rm rabbit && docker pull ht944/rabbit:latest && cd /root/Rabbit && docker run --name rabbit -p 5701:1234  -d  -v  /root/Rabbit/Config:/usr/src/Project/Config -it --privileged=true  ht944/rabbit:latest
 ```
+
+
+### 对接傻妞
+1.rabbit的配置文件中自定义设置XDD_TOKEN的值，如：123456
+2.rabbit的配置文件中设置你的XDD_URL的值，如：http://127.0.0.1:8080
+3.rabbit的配置文件中Config参数设置为[]，如："Config": []
+4.xdd中设置对应的apitoken
+5.设置完之后，重启rabbit和傻妞
+
+### 对接xdd
+1.rabbit的配置文件中自定义设置SILLY_TOKEN的值，如：123456
+2.傻妞可视化面板中设置ark2.0_token为刚刚设置的 SILLY_TOKEN,或者发送命令 set jd_cookie ark2.0_token xxx, xxx为刚刚的token值，例如：set jd_cookie ark2.0_token
+3.傻妞设置对接的rabbit地址，命令为: `set jd_cookie nolan_addr http://xxx:xxxx`，http://xxx:xxxx为你的rabbit地址，或者对接rabbit的快捷登录（需要rabbit的4.0.2版本以上）`set jd_cookie nolan_addr http://xxx:xxxx`
+4.设置完之后，重启rabbit和xdd
+
 
 ### 👇更新日志👇
+
+#### 4.0.2(amd/arm) 版本更新
+* 快捷登陆对接傻妞，需设置set jd_cookie nolan_addr http://ip:port/rabbit，需要更新最新版的傻妞
+* xdd版本设置rabbit_url为http://ip:port/rabbit
+* 修复部分其他bug
+
+#### 4.0.1(amd/arm) 版本更新
+* 修复接口登陆对接其他工具的问题
+* 验证码类型可自行选择，目前特殊验证码的通过率极低，基本过不去，故开放图鉴打码方式，可通过配置图鉴账号密码，以及新的参数FORCE_CAPTCHA，设置为true为特殊验证码，false为手势验证码，同时手势验证码需要非腾讯阿里的ip，否则仍为特殊验证码
+* 修复部分其他bug
 
 #### 4.0.0 (amd/arm) 版本更新
 * 新增接口方式登陆
