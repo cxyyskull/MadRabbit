@@ -5,6 +5,7 @@
 #### 目前功能：自动过点选、魔方和拼图验证以及对接打码平台过手势验证获取ck，wsck提交，比价领取优惠券，仅支持对接青龙、xdd、傻妞，不支持其他工具对接
 #### 傻妞和青龙可共存，青龙配置为空时，无法使用网页端登录
 #### 查询rabbit版本：http://你的rabbit地址/api/version
+#### 更新rabbit：http://你的rabbit地址/api/update
 
 # [👉科学上网的频道](https://t.me/Rabbit_one)
 
@@ -69,7 +70,7 @@ cd /root/Rabbit
 ```
 启动
 ```
-sudo docker run --name rabbit -p 5701:1234  -d  -v  /root/Rabbit/Config:/usr/src/Project/Config -it --privileged=true  --restart=always  ht944/rabbit:latest
+sudo docker run --name rabbit -p 5701:1234  -d  -v  /root/Rabbit/Config:/MadRabbit_amd/Config -it --privileged=true  --restart=always  ht944/rabbit:latest
 ```
 arm版本
 ```
@@ -81,7 +82,7 @@ cd /root/Rabbit
 ```
 启动
 ```
-sudo docker run --name rabbit -p 5701:1234  -d  -v  /root/Rabbit/Config:/usr/src/Project/Config -it --privileged=true  --restart=always  ht944/rabbit:arm
+sudo docker run --name rabbit -p 5701:1234  -d  -v  /root/Rabbit/Config:/MadRabbit_arm/Config -it --privileged=true  --restart=always  ht944/rabbit:arm
 ```
 
 ### 对接WXPUSHER
@@ -109,16 +110,23 @@ docker pull ht944/rabbit:latest
 ```
 cd /root/Rabbit 
 ```
-5.启动容器（arm的需要改latest为arm）
+5.amd启动容器
 ```
-sudo docker run --name rabbit -p 5701:1234  -d  -v  /root/Rabbit/Config:/usr/src/Project/Config -it --privileged=true  ht944/rabbit:latest
+sudo docker run --name rabbit -p 5701:1234  -d  -v  /root/Rabbit/Config:/MadRabbit_amd/Config -it --privileged=true  ht944/rabbit:latest
+```
+arm启动容器
+```
+sudo docker run --name rabbit -p 5701:1234  -d  -v  /root/Rabbit/Config:/MadRabbit_arm/Config -it --privileged=true  ht944/rabbit:arm
 ```
 
-## 一次执行上面所有命令（arm的需要改latest为arm）
+## amd一次执行上面所有命令
 ```
-sudo docker stop rabbit && docker rm rabbit && docker pull ht944/rabbit:latest && cd /root/Rabbit && docker run --name rabbit -p 5701:1234  -d  -v  /root/Rabbit/Config:/usr/src/Project/Config -it --privileged=true  ht944/rabbit:latest
+sudo docker stop rabbit && docker rm rabbit && docker pull ht944/rabbit:latest && cd /root/Rabbit && docker run --name rabbit -p 5701:1234  -d  -v  /root/Rabbit/Config:/MadRabbit_amd/Config -it --privileged=true  ht944/rabbit:latest
 ```
-
+## ARM版本一次执行上面所有命令
+```
+sudo docker stop rabbit && docker rm rabbit && docker pull ht944/rabbit:arm && cd /root/Rabbit && docker run --name rabbit -p 5701:1234  -d  -v  /root/Rabbit/Config:/MadRabbit_arm/Config -it --privileged=true  ht944/rabbit:arm
+```
 
 ### 对接xdd
 1. rabbit的配置文件中自定义设置XDD_TOKEN的值，如：123456
@@ -135,6 +143,13 @@ sudo docker stop rabbit && docker rm rabbit && docker pull ht944/rabbit:latest &
 
 
 ### 👇更新日志👇
+
+#### 4.0.3(amd/arm) 版本更新
+* 删除比价，快捷登陆功能
+* 适配星空，熊猫代理，将api设置在proxy立即可，注意提取api时设置数量为1
+* 增加更新功能，输入http://ip:port/api/update可自动更新最新版
+* 更改为默认使用打码方式
+* 修复部分其他bug
 
 #### 4.0.2(amd/arm) 版本更新
 * 快捷登陆对接傻妞，需设置set jd_cookie nolan_addr http://ip:port/rabbit，需要更新最新版的傻妞
