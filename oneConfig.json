@@ -68,4 +68,5 @@
       // WXPUSHER的应用token，不推送留空
       "APP_TOKEN": ""
     }
+    ]
 }
