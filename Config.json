@@ -12,18 +12,22 @@
   "debug": true,
   // 自动过验证码的次数
   "AutoCaptchaCount": "5",
+  // 是否可复制ck，默认不可复制
+  "REAL_CK": false,
   // 无密码认证的http代理或socks代理,不可使用腾讯阿里的代理，腾讯阿里服务器徐使用代理
   "proxy": "",
   // XDD_URL地址
   "XDD_URL": "",
   // XDD_TOKEN
   "XDD_TOKEN": "",
+  // 强制使用特殊验证码
+  "FORCE_CAPTCHA": true,
   // 平台注册地址：http://www.ttshitu.com/register.html
   // 打码平台的账号
   "TJ_USER": "",
   // 打码平台用户密码
   "TJ_PWD": "",
-  // 傻妞的token，傻妞不设置token，无法对接rabbit
+  // 傻妞的token，傻妞不设置token，无法对接rabbit，命令为：set jd_cookie ark2.0_token xxxx
   "SILLY_TOKEN": "",
   // 刷新登陆账号的冷却时间，立马能登陆
   // 刷新链接示例：http://127.0.0.1:5701/api/refresh?token=132&phone=18888888888
@@ -44,10 +48,10 @@
   // 青龙配置，必须要有，不同青龙配置用,隔开，傻妞可同时配置青龙和傻妞
   // 单个青龙时，必须删除一个青龙配置，否则会报青龙配置错误
   // 傻妞对接需要用最新版
+  // 配置xdd则全部删除，"Config": []
   "Config": [
-    // 配置xdd则全部删除，配置留空
     {
-      // 大于1的不重复数字
+      // 从1开始的的不重复数字
       "QLkey": 1,
       // 服务器昵称
       "QLName": "腾讯云",
